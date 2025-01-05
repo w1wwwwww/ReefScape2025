@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import com.ctre.phoenix6.signals.SensorDirectionValue;
+
+import edu.wpi.first.units.measure.Angle;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -16,4 +20,8 @@ public final class Constants {
   public static class OperatorConstants {
     public static final int kDriverControllerPort = 0;
   }
+
+  //CANCoder Constants
+  public static final Angle ABSOLUTE_ENCODER_DISCONTINUITY_POINT = null;
+  public static final SensorDirectionValue ABSOLUTE_ENCODER_SENSOR_DIRECTION = null;
 }
