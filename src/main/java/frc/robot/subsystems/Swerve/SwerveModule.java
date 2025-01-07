@@ -63,18 +63,18 @@ public class SwerveModule {
 
     //Gets the state of this module by giving you the wheel veloicty and the value of the wheel angle
     public SwerveModuleState getState(){
-        return new SwerveModuleState(driveEncoder.getVelocity(), new Rotation2d(angleEncoder.getAbsolutePosition().getValue()));
+        return new SwerveModuleState(driveEncoder.getVelocity(), getAngle());
     }
 
     //Gets the current position of the robot or where it is
     public SwerveModulePosition getPosition(){
-        return new SwerveModulePosition(driveEncoder.getPosition(), new Rotation2d(angleEncoder.getAbsolutePosition().getValue()));
+        return new SwerveModulePosition(driveEncoder.getPosition(), getAngle());
     }
 
     //Sets the desired wheel state of this module for the robot
     public void setDesiredStates(SwerveModuleState state){
-        //used to prevent the robot wheels from spinning further thatn 90 degrees
-        state.optimize(null); //needs a get angle function
+        //used to prevent the robot wheels from spinning further that 90 degrees
+        state.optimize(getAngle()); 
     }
     
 }
