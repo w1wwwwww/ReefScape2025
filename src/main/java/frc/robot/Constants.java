@@ -24,4 +24,28 @@ public final class Constants {
   //CANCoder Constants
   public static final Angle ABSOLUTE_ENCODER_DISCONTINUITY_POINT = null;
   public static final SensorDirectionValue ABSOLUTE_ENCODER_SENSOR_DIRECTION = null;
+
+  //Front Left Swerve Module Constants
+  public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 0;
+  public static final int Front_LEFT_ANGLE_MOTOR_ID = 0;
+  public static final int FRONT_LEFT_CANCODER_ID = 0;
+  public static final double FRONT_LEFT_ANGLE_OFFSET = 0;
+
+  //Front Left Swerve Module Constants
+  public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 0;
+  public static final int Front_RIGHT_ANGLE_MOTOR_ID = 0;
+  public static final int FRONT_RIGHT_CANCODER_ID = 0;
+  public static final double FRONT_RIGHT_ANGLE_OFFSET = 0;
+
+  //Front Left Swerve Module Constants
+  public static final int BACK_LEFT_DRIVE_MOTOR_ID = 0;
+  public static final int BACK_LEFT_ANGLE_MOTOR_ID = 0;
+  public static final int BACK_LEFT_CANCODER_ID = 0;
+  public static final double BACK_LEFT_ANGLE_OFFSET = 0;
+
+  //Front Left Swerve Module Constants
+  public static final int BACK_RIGHT_DRIVE_MOTOR_ID = 0;
+  public static final int BACK_RIGHT_ANGLE_MOTOR_ID = 0;
+  public static final int BACK_RIGHT_CANCODER_ID = 0;
+  public static final double BACK_RIGHT_ANGLE_OFFSET = 0;
 }
