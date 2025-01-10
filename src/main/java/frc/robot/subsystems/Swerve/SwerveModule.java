@@ -21,13 +21,12 @@ public class SwerveModule {
     private RelativeEncoder driveEncoder;
     private CANcoder angleEncoder;
     private CANcoderConfiguration angleEncoderConfiguration;
-    private double angleEncoderOffset;
     private SparkMaxConfig driveMotorConfig;
     private double angleAsDouble;
-    private double moduleAngle;
+    private int moduleNumber;
 
     //Constructor that allows for all of the modules to be created in the subsytem by feeding in the ids and offsets
-    public SwerveModule(int driveMotorID, int angleMotorID, int CANCoderID, double AngleEncoderOffset){
+    public SwerveModule(int driveMotorID, int angleMotorID, int CANCoderID, double angleEncoderOffset, int moduleNumber){
 
         //Defines the motor in the constructor to tell the rest of the clas it exists
         driveMotor = new SparkMax(driveMotorID, MotorType.kBrushless);
@@ -44,12 +43,12 @@ public class SwerveModule {
 
         //Changes the magnet sensor settings to work better with our robot
         angleEncoderConfiguration.MagnetSensor.withAbsoluteSensorDiscontinuityPoint(Constants.ABSOLUTE_ENCODER_DISCONTINUITY_POINT);
-        angleEncoderConfiguration.MagnetSensor.MagnetOffset = AngleEncoderOffset;
+        angleEncoderConfiguration.MagnetSensor.MagnetOffset = angleEncoderOffset;
         angleEncoderConfiguration.MagnetSensor.SensorDirection = Constants.ABSOLUTE_ENCODER_SENSOR_DIRECTION;
 
         //applies the changes that were made to the CANCoder
-        angleEncoder.getConfigurator().apply(angleEncoderConfiguration);
-        
+        angleEncoder.getConfigurator().apply(angleEncoderConfiguration);    
+        this.moduleNumber = moduleNumber;    
     }
 
     //Returns the module angle in degrees
@@ -72,9 +71,13 @@ public class SwerveModule {
     }
 
     //Sets the desired wheel state of this module for the robot
-    public void setDesiredStates(SwerveModuleState state){
+    public void setDesiredState(SwerveModuleState desiredStates){
         //used to prevent the robot wheels from spinning further that 90 degrees
-        state.optimize(getAngle()); 
+        desiredStates.optimize(getAngle()); 
+    }
+
+    public int getNumber(){
+        return moduleNumber;
     }
     
 }

@@ -6,6 +6,8 @@ package frc.robot;
 
 import com.ctre.phoenix6.signals.SensorDirectionValue;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.units.measure.Angle;
 
 /**
@@ -30,22 +32,52 @@ public final class Constants {
   public static final int Front_LEFT_ANGLE_MOTOR_ID = 0;
   public static final int FRONT_LEFT_CANCODER_ID = 0;
   public static final double FRONT_LEFT_ANGLE_OFFSET = 0;
+  public static final int FRONT_LEFT_MODULE_NUMBER = 0;
 
-  //Front Left Swerve Module Constants
+  //Front Right Swerve Module Constants
   public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 0;
   public static final int Front_RIGHT_ANGLE_MOTOR_ID = 0;
   public static final int FRONT_RIGHT_CANCODER_ID = 0;
   public static final double FRONT_RIGHT_ANGLE_OFFSET = 0;
+  public static final int FRONT_RIGHT_MODULE_NUMBER = 1;
 
-  //Front Left Swerve Module Constants
+  //Back Left Swerve Module Constants
   public static final int BACK_LEFT_DRIVE_MOTOR_ID = 0;
   public static final int BACK_LEFT_ANGLE_MOTOR_ID = 0;
   public static final int BACK_LEFT_CANCODER_ID = 0;
   public static final double BACK_LEFT_ANGLE_OFFSET = 0;
+  public static final int BACK_LEFT_MODULE_NUMBER = 2;
 
-  //Front Left Swerve Module Constants
+  //Back Right Swerve Module Constants
   public static final int BACK_RIGHT_DRIVE_MOTOR_ID = 0;
   public static final int BACK_RIGHT_ANGLE_MOTOR_ID = 0;
   public static final int BACK_RIGHT_CANCODER_ID = 0;
   public static final double BACK_RIGHT_ANGLE_OFFSET = 0;
+  public static final int BACK_RIGHT_MODULE_NUMBER = 3;
+
+  //DriveBase Lenghts
+  public static final int ROBOT_BASE_LENGTH = 0;
+  public static final int ROBOT_BASE_WIDTH = 0;
+
+  public static final double X_FROM_CENTER = ROBOT_BASE_LENGTH / 2;
+  public static final double Y_FROM_CENTER = ROBOT_BASE_WIDTH / 2;
+
+  public static final double FRONT_LEFT_X_LOCATION = X_FROM_CENTER;
+  public static final double FRONT_LEFT_Y_LOCATION = Y_FROM_CENTER;
+
+  public static final double FRONT_RIGHT_X_LOCATION = X_FROM_CENTER;
+  public static final double FRONT_RIGHT_Y_LOCATION = -Y_FROM_CENTER;
+
+  public static final double BACK_LEFT_X_LOCATION = -X_FROM_CENTER;
+  public static final double BACK_LEFT_Y_LOCATION = Y_FROM_CENTER;
+
+  public static final double BACK_RIGHT_X_LOCATION = -X_FROM_CENTER;
+  public static final double BACK_RIGHT_Y_LOCATION = -Y_FROM_CENTER;
+
+  //Swerve Drive
+  public static final SwerveDriveKinematics SWERVE_DRIVE_KINEMATICS = new SwerveDriveKinematics(
+    new Translation2d(FRONT_LEFT_X_LOCATION, FRONT_LEFT_Y_LOCATION),
+    new Translation2d(FRONT_RIGHT_X_LOCATION, FRONT_RIGHT_Y_LOCATION),
+    new Translation2d(BACK_LEFT_X_LOCATION, BACK_LEFT_Y_LOCATION),
+    new Translation2d(BACK_RIGHT_X_LOCATION, BACK_RIGHT_Y_LOCATION));
 }
