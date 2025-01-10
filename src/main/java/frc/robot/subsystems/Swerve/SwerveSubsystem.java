@@ -94,5 +94,6 @@ public class SwerveSubsystem extends SubsystemBase{
         else {
         states = Constants.SWERVE_DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(xSpeed, ySpeed, zSpeed));
         }
+        setSwerveModuleStates(states);
     }
 }
