@@ -44,7 +44,7 @@ public class SwerveModule {
         //Changes the magnet sensor settings to work better with our robot
         angleEncoderConfiguration.MagnetSensor.withAbsoluteSensorDiscontinuityPoint(Constants.ABSOLUTE_ENCODER_DISCONTINUITY_POINT);
         angleEncoderConfiguration.MagnetSensor.MagnetOffset = angleEncoderOffset;
-        angleEncoderConfiguration.MagnetSensor.SensorDirection = Constants.ABSOLUTE_ENCODER_SENSOR_DIRECTION;
+        angleEncoderConfiguration.MagnetSensor.withSensorDirection(Constants.ABSOLUTE_ENCODER_SENSOR_DIRECTION);
 
         //applies the changes that were made to the CANCoder
         angleEncoder.getConfigurator().apply(angleEncoderConfiguration);    
