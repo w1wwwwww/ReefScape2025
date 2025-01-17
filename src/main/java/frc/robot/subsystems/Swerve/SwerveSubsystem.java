@@ -69,6 +69,13 @@ public class SwerveSubsystem extends SubsystemBase{
         };
     }
 
+    public void getModuleAngles(){
+        System.out.println("Front Left Module Angle: " + frontLeftSwerveModule.getAngle());
+        System.out.println("Front Right Module Angle: " + frontLeftSwerveModule.getAngle());
+        System.out.println("Back Left Module Angle: " + frontLeftSwerveModule.getAngle());
+        System.out.println("Back Right Module Angle: " + frontLeftSwerveModule.getAngle());
+    }
+
     //Returns the positions of all swerve modules
     public SwerveModulePosition[] getSwerveModulePositions(){
         return new SwerveModulePosition[]{
