@@ -2,6 +2,7 @@ package frc.robot.subsystems.Swerve;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.CANBus;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
@@ -23,6 +24,7 @@ public class SwerveModule {
     private CANcoderConfiguration angleEncoderConfiguration;
     private SparkMaxConfig driveMotorConfig;
     private double angleAsDouble;
+    private double angleEncoderOffset;
     private int moduleNumber;
 
     //Constructor that allows for all of the modules to be created in the subsytem by feeding in the ids and offsets
@@ -33,6 +35,7 @@ public class SwerveModule {
 
         //Defines the drive encoder of off the drive motor to tell us how many times the robot has spun
         driveEncoder = driveMotor.getEncoder();
+
 
         //Defines the motor and the CANCoder
         angleMotor = new SparkMax(angleMotorID, MotorType.kBrushless);
@@ -56,8 +59,13 @@ public class SwerveModule {
         //Gets the CTRE value from -0.5 to 0.5
         double angleAsDouble = angleEncoder.getAbsolutePosition().getValueAsDouble();
         //Multiplies the value of -0.5 to 0.5 giving us the value as an angle
-        double moduleAngle = 360 * angleAsDouble;
+        double moduleAngle = ((360 * angleAsDouble) * Math.PI / 180);
         return new Rotation2d(moduleAngle);
+    }
+
+    public double getAngleOffset(){
+        double angleAsDouble = angleEncoder.getAbsolutePosition().getValueAsDouble();
+        return angleAsDouble;
     }
 
     //Gets the state of this module by giving you the wheel veloicty and the value of the wheel angle

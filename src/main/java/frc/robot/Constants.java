@@ -9,6 +9,7 @@ import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -30,7 +31,7 @@ public final class Constants {
   //Front Left Swerve Module Constants
   public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 7;
   public static final int Front_LEFT_ANGLE_MOTOR_ID = 8;
-  public static final int FRONT_LEFT_CANCODER_ID = 7;
+  public static final int FRONT_LEFT_CANCODER_ID = 8;
   public static final double FRONT_LEFT_ANGLE_OFFSET = 0;
   public static final int FRONT_LEFT_MODULE_NUMBER = 0;
 
@@ -52,7 +53,8 @@ public final class Constants {
   public static final int BACK_RIGHT_DRIVE_MOTOR_ID = 4;
   public static final int BACK_RIGHT_ANGLE_MOTOR_ID = 3;
   public static final int BACK_RIGHT_CANCODER_ID = 3;
-  public static final double BACK_RIGHT_ANGLE_OFFSET = 0;
+  public static final double BACK_RIGHT_ANGLE_OFFSET = -0.003173828125;
+  ;
   public static final int BACK_RIGHT_MODULE_NUMBER = 3;
 
   //DriveBase Lenghts
