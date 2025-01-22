@@ -9,6 +9,7 @@ import com.ctre.phoenix6.signals.SensorDirectionValue;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
 
 /**
@@ -32,28 +33,29 @@ public final class Constants {
   public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 7;
   public static final int Front_LEFT_ANGLE_MOTOR_ID = 8;
   public static final int FRONT_LEFT_CANCODER_ID = 8;
-  public static final double FRONT_LEFT_ANGLE_OFFSET = 0;
+  public static final double FRONT_LEFT_ANGLE_OFFSET = 0.44970703125 + 0.1013055;
   public static final int FRONT_LEFT_MODULE_NUMBER = 0;
 
   //Front Right Swerve Module Constants
   public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 1;
   public static final int Front_RIGHT_ANGLE_MOTOR_ID = 2;
   public static final int FRONT_RIGHT_CANCODER_ID = 2;
-  public static final double FRONT_RIGHT_ANGLE_OFFSET = 0;
+  public static final double FRONT_RIGHT_ANGLE_OFFSET = -0.413818359375 - 0.1726111;
   public static final int FRONT_RIGHT_MODULE_NUMBER = 1;
 
   //Back Left Swerve Module Constants
   public static final int BACK_LEFT_DRIVE_MOTOR_ID = 10;
   public static final int BACK_LEFT_ANGLE_MOTOR_ID = 9;
   public static final int BACK_LEFT_CANCODER_ID = 9;
-  public static final double BACK_LEFT_ANGLE_OFFSET = 0;
+  public static final double BACK_LEFT_ANGLE_OFFSET = 0.061279296875;
+
   public static final int BACK_LEFT_MODULE_NUMBER = 2;
 
   //Back Right Swerve Module Constants
   public static final int BACK_RIGHT_DRIVE_MOTOR_ID = 4;
   public static final int BACK_RIGHT_ANGLE_MOTOR_ID = 3;
   public static final int BACK_RIGHT_CANCODER_ID = 3;
-  public static final double BACK_RIGHT_ANGLE_OFFSET = -0.003173828125;
+  public static final double BACK_RIGHT_ANGLE_OFFSET = -0.003173828125 + 0.0063;
   ;
   public static final int BACK_RIGHT_MODULE_NUMBER = 3;
 
@@ -82,8 +84,14 @@ public final class Constants {
     new Translation2d(FRONT_RIGHT_X_LOCATION, FRONT_RIGHT_Y_LOCATION),
     new Translation2d(BACK_LEFT_X_LOCATION, BACK_LEFT_Y_LOCATION),
     new Translation2d(BACK_RIGHT_X_LOCATION, BACK_RIGHT_Y_LOCATION));
+  
+public static final int MAX_DRIVE_SPEED_MPS = 1;
+
+//Joysticks
 public static final double DEADBAND = 0.1;
 public static final int RIGHT_JOYSTICK_PORT = 2;
 public static final int MIDDLE_JOYSTICK_PORT = 1;
 public static final int LEFT_JOYSTICK_PORT = 0;
+
+
 }

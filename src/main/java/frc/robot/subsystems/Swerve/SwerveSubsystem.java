@@ -70,10 +70,10 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public void getModuleAngles(){
-        System.out.println("Front Left Module Angle: " + frontLeftSwerveModule.getAngleOffset());
-        System.out.println("Front Right Module Angle: " + frontRightSwerveModule.getAngleOffset());
-        System.out.println("Back Left Module Angle: " + backLeftSwerveModule.getAngleOffset());
-        System.out.println("Back Right Module Angle: " + backRightSwerveModule.getAngleOffset());
+        System.out.println("Front Left Module Angle: " + frontLeftSwerveModule.getAngle());
+        System.out.println("Front Right Module Angle: " + frontRightSwerveModule.getAngle());
+        System.out.println("Back Left Module Angle: " + backLeftSwerveModule.getAngle());
+        System.out.println("Back Right Module Angle: " + backRightSwerveModule.getAngle());
     }
 
     //Returns the positions of all swerve modules
@@ -87,7 +87,7 @@ public class SwerveSubsystem extends SubsystemBase{
     }
 
     public void setSwerveModuleStates(SwerveModuleState[] desiredStates){
-        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, null);
+        SwerveDriveKinematics.desaturateWheelSpeeds(desiredStates, Constants.MAX_DRIVE_SPEED_MPS);
         for(SwerveModule module : modules){
             module.setDesiredState(desiredStates[module.getNumber()]);
         }
@@ -102,5 +102,8 @@ public class SwerveSubsystem extends SubsystemBase{
         states = Constants.SWERVE_DRIVE_KINEMATICS.toSwerveModuleStates(new ChassisSpeeds(xSpeed, ySpeed, zSpeed));
         }
         setSwerveModuleStates(states);
+    }
+    public void test(double xSpeed, double ySpeed, double zSpeed, boolean fieldOriented){
+        
     }
 }

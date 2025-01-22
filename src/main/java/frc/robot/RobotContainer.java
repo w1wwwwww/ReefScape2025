@@ -45,7 +45,8 @@ public class RobotContainer {
       swerveSubsystem, 
       () -> leftJoystick.getX(), 
       () -> leftJoystick.getY(), 
-      () -> middleJoystick.getX(), () -> true));
+      () -> middleJoystick.getX(), 
+      () -> false));
   }
 
   /**
