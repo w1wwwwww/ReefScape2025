@@ -29,7 +29,7 @@ public class SwerveTeleopDrive extends Command {
         double ySpeed = deadband(ySupplier.get(), Constants.DEADBAND);
         double zSpeed = deadband(zSupplier.get(), Constants.DEADBAND);
 
-        System.out.println("xSpeed:" + xSpeed + " ySpeed: " + ySpeed + " zSpeed: " + zSpeed);
+        // System.out.println("xSpeed:" + xSpeed + " ySpeed: " + ySpeed + " zSpeed: " + zSpeed);
 
         swerveSubsystem.drive(xSpeed, ySpeed, zSpeed, fieldOrientedSupplier.get());
         int index = 0;
@@ -39,7 +39,7 @@ public class SwerveTeleopDrive extends Command {
 
         // }
 
-        // swerveSubsystem.getModuleAngles();
+        swerveSubsystem.getModuleAngles();
     }
 
     private double deadband(double value,  double threshold){

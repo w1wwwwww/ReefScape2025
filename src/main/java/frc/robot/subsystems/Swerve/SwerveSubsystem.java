@@ -103,7 +103,4 @@ public class SwerveSubsystem extends SubsystemBase{
         }
         setSwerveModuleStates(states);
     }
-    public void test(double xSpeed, double ySpeed, double zSpeed, boolean fieldOriented){
-        
-    }
 }

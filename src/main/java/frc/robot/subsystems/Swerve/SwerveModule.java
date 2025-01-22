@@ -7,6 +7,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
@@ -22,6 +23,7 @@ public class SwerveModule {
     private RelativeEncoder driveEncoder;
     private CANcoder angleEncoder;
     private CANcoderConfiguration angleEncoderConfiguration;
+    private PIDController angleController;
     private SparkMaxConfig driveMotorConfig;
     private double angleAsDouble;
     private double angleEncoderOffset;
@@ -51,6 +53,8 @@ public class SwerveModule {
 
         //applies the changes that were made to the CANCoder
         angleEncoder.getConfigurator().apply(angleEncoderConfiguration);    
+        
+        angleController = new PIDController(1, 0, 0);
         this.moduleNumber = moduleNumber;    
     }
 
@@ -82,6 +86,10 @@ public class SwerveModule {
     public void setDesiredState(SwerveModuleState desiredStates){
         //used to prevent the robot wheels from spinning further that 90 degrees
         desiredStates.optimize(getAngle()); 
+
+        double angleOutput = angleController.calculate(getState().angle.getDegrees(), desiredStates.angle.getDegrees());
+        angleMotor.set(angleOutput);
+        driveMotor.set(desiredStates.speedMetersPerSecond);
     }
 
     public int getNumber(){

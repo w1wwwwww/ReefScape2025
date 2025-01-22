@@ -85,7 +85,7 @@ public final class Constants {
     new Translation2d(BACK_LEFT_X_LOCATION, BACK_LEFT_Y_LOCATION),
     new Translation2d(BACK_RIGHT_X_LOCATION, BACK_RIGHT_Y_LOCATION));
   
-public static final int MAX_DRIVE_SPEED_MPS = 1;
+public static final double MAX_DRIVE_SPEED_MPS = 1;
 
 //Joysticks
 public static final double DEADBAND = 0.1;
