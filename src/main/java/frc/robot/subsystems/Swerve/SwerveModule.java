@@ -54,7 +54,7 @@ public class SwerveModule {
         //applies the changes that were made to the CANCoder
         angleEncoder.getConfigurator().apply(angleEncoderConfiguration);    
         
-        angleController = new PIDController(1, 0, 0);
+        angleController = new PIDController(0.001, 0, 0);
         this.moduleNumber = moduleNumber;    
     }
 
