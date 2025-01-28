@@ -54,11 +54,12 @@ public class SwerveModule {
         //applies the changes that were made to the CANCoder
         angleEncoder.getConfigurator().apply(angleEncoderConfiguration);    
         
-        angleController = new PIDController(0.001, 0, 0);
+        angleController = new PIDController(0.05, 0.004, 0.0000);
+        angleController.enableContinuousInput(-Math.PI, Math.PI);
         this.moduleNumber = moduleNumber;    
     }
 
-    //Returns the module angle in degrees
+    //Returns the module angle in degrees;
     public Rotation2d getAngle(){
         //Gets the CTRE value from -0.5 to 0.5
         double angleAsDouble = angleEncoder.getAbsolutePosition().getValueAsDouble();
@@ -87,7 +88,7 @@ public class SwerveModule {
         //used to prevent the robot wheels from spinning further that 90 degrees
         desiredStates.optimize(getAngle()); 
 
-        double angleOutput = angleController.calculate(getState().angle.getDegrees(), desiredStates.angle.getDegrees());
+        double angleOutput = angleController.calculate(getState().angle.getRadians(), desiredStates.angle.getRadians());
         angleMotor.set(angleOutput);
         driveMotor.set(desiredStates.speedMetersPerSecond);
     }
