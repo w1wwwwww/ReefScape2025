@@ -5,6 +5,7 @@ import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.CANBus;
 import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
+import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
@@ -16,6 +17,7 @@ import edu.wpi.first.units.measure.Angle;
 import frc.robot.Constants;
 
 import com.revrobotics.spark.SparkMax;
+import com.revrobotics.spark.SparkBase.ControlType;
 
 public class SwerveModule {
 
@@ -30,6 +32,7 @@ public class SwerveModule {
     private double angleEncoderOffset;
     private int moduleNumber;
     private AbsoluteEncoder motorAbsoluteEncoder;
+    private SparkClosedLoopController anglePID;
 
     //Constructor that allows for all of the modules to be created in the subsytem by feeding in the ids and offsets
     public SwerveModule(int driveMotorID, int angleMotorID, int CANCoderID, double angleEncoderOffset, int moduleNumber){
@@ -45,7 +48,7 @@ public class SwerveModule {
         angleMotor = new SparkMax(angleMotorID, MotorType.kBrushless);
         angleEncoder = new CANcoder(CANCoderID);
         motorAbsoluteEncoder = angleMotor.getAbsoluteEncoder();
-
+        anglePID = angleMotor.getClosedLoopController();
         //Makes a configurator object for the CANCoder allowing us to change specific parts of it
         angleEncoderConfiguration = new CANcoderConfiguration();
 
@@ -65,8 +68,8 @@ public class SwerveModule {
     //Returns the module angle in degrees;
     public Rotation2d getAngle(){
         //Gets the CTRE value from -0.5 to 0.5
-        // double angleAsDouble = angleEncoder.getAbsolutePosition().getValueAsDouble();
-        double angleAsDouble = motorAbsoluteEncoder.getPosition();
+        double angleAsDouble = angleEncoder.getAbsolutePosition().getValueAsDouble();
+        // double angleAsDouble = motorAbsoluteEncoder.getPosition();
         //Multiplies the value of -0.5 to 0.5 giving us the value as an angle
         double moduleAngle = ((360 * angleAsDouble) * Math.PI / 180);
         return new Rotation2d(moduleAngle);
@@ -92,8 +95,9 @@ public class SwerveModule {
         //used to prevent the robot wheels from spinning further that 90 degrees
         desiredStates.optimize(getAngle()); 
 
-        double angleOutput = angleController.calculate(getState().angle.getRadians(), desiredStates.angle.getRadians());
-        angleMotor.set(angleOutput);
+        anglePID.setReference(desiredStates.angle.getRadians(), ControlType.kPosition);
+        // double angleOutput = angleController.calculate(getState().angle.getRadians(), desiredStates.angle.getRadians());
+        // angleMotor.set(angleOutput);
         driveMotor.set(desiredStates.speedMetersPerSecond);
     }
 
