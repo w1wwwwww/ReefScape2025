@@ -33,6 +33,7 @@ public class SwerveModule {
     private int moduleNumber;
     private AbsoluteEncoder motorAbsoluteEncoder;
     private SparkClosedLoopController anglePID;
+    private SparkMaxConfig turningConfig;
 
     //Constructor that allows for all of the modules to be created in the subsytem by feeding in the ids and offsets
     public SwerveModule(int driveMotorID, int angleMotorID, int CANCoderID, double angleEncoderOffset, int moduleNumber){
@@ -49,6 +50,11 @@ public class SwerveModule {
         angleEncoder = new CANcoder(CANCoderID);
         motorAbsoluteEncoder = angleMotor.getAbsoluteEncoder();
         anglePID = angleMotor.getClosedLoopController();
+        angleController.setP(0.1);
+        angleController.setI(0);
+        angleController.setD(0);
+        angleController.setIntegratorRange(-1, -1);
+        
         //Makes a configurator object for the CANCoder allowing us to change specific parts of it
         angleEncoderConfiguration = new CANcoderConfiguration();
 
