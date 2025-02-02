@@ -7,6 +7,7 @@ import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
+import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -18,6 +19,8 @@ import frc.robot.Constants;
 
 import com.revrobotics.spark.SparkMax;
 import com.revrobotics.spark.SparkBase.ControlType;
+import com.revrobotics.spark.SparkBase.PersistMode;
+import com.revrobotics.spark.SparkBase.ResetMode;
 
 public class SwerveModule {
 
@@ -34,6 +37,7 @@ public class SwerveModule {
     private AbsoluteEncoder motorAbsoluteEncoder;
     private SparkClosedLoopController anglePID;
     private SparkMaxConfig turningConfig;
+    
 
     //Constructor that allows for all of the modules to be created in the subsytem by feeding in the ids and offsets
     public SwerveModule(int driveMotorID, int angleMotorID, int CANCoderID, double angleEncoderOffset, int moduleNumber){
@@ -50,11 +54,16 @@ public class SwerveModule {
         angleEncoder = new CANcoder(CANCoderID);
         motorAbsoluteEncoder = angleMotor.getAbsoluteEncoder();
         anglePID = angleMotor.getClosedLoopController();
-        angleController.setP(0.1);
-        angleController.setI(0);
-        angleController.setD(0);
-        angleController.setIntegratorRange(-1, -1);
-        
+        turningConfig = new SparkMaxConfig();
+        turningConfig.closedLoop
+            .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+            .pid(1.0, 0.0, 0.0)
+            .outputRange(-1, 1)
+            .positionWrappingEnabled(true);
+        angleMotor.configure(turningConfig, ResetMode.kResetSafeParameters,
+        PersistMode.kPersistParameters);
+
+
         //Makes a configurator object for the CANCoder allowing us to change specific parts of it
         angleEncoderConfiguration = new CANcoderConfiguration();
 
@@ -67,7 +76,7 @@ public class SwerveModule {
         angleEncoder.getConfigurator().apply(angleEncoderConfiguration);    
         
         // angleController = new PIDController(0.05, 0.004, 0.0000);
-        angleController.enableContinuousInput(-Math.PI, Math.PI);
+        // angleController.enableContinuousInput(-Math.PI, Math.PI);
         this.moduleNumber = moduleNumber;    
     }
 
