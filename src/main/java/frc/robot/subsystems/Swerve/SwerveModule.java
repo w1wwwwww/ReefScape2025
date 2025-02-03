@@ -8,6 +8,7 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
+import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
 import edu.wpi.first.math.controller.PIDController;
@@ -37,6 +38,8 @@ public class SwerveModule {
     private AbsoluteEncoder motorAbsoluteEncoder;
     private SparkClosedLoopController anglePID;
     private SparkMaxConfig turningConfig;
+    private SparkMaxConfig driveConfig;
+    private RelativeEncoder turningRelativeEncoder;
     
 
     //Constructor that allows for all of the modules to be created in the subsytem by feeding in the ids and offsets
@@ -45,6 +48,8 @@ public class SwerveModule {
         //Defines the motor in the constructor to tell the rest of the clas it exists
         driveMotor = new SparkMax(driveMotorID, MotorType.kBrushless);
 
+        driveConfig = new SparkMaxConfig();
+
         //Defines the drive encoder of off the drive motor to tell us how many times the robot has spun
         driveEncoder = driveMotor.getEncoder();
 
@@ -52,14 +57,19 @@ public class SwerveModule {
         //Defines the motor and the CANCoder
         angleMotor = new SparkMax(angleMotorID, MotorType.kBrushless);
         angleEncoder = new CANcoder(CANCoderID);
+        turningRelativeEncoder = angleMotor.getEncoder();
         motorAbsoluteEncoder = angleMotor.getAbsoluteEncoder();
         anglePID = angleMotor.getClosedLoopController();
         turningConfig = new SparkMaxConfig();
         turningConfig.closedLoop
-            .feedbackSensor(FeedbackSensor.kAbsoluteEncoder)
+            .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
             .pid(1.0, 0.0, 0.0)
             .outputRange(-1, 1)
             .positionWrappingEnabled(true);
+        // turningConfig.encoder
+            // .positionConversionFactor(Constants.ANGLE_CONVERSION_FACTOR);
+        turningConfig
+            .idleMode(IdleMode.kBrake);
         angleMotor.configure(turningConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
@@ -77,17 +87,31 @@ public class SwerveModule {
         
         // angleController = new PIDController(0.05, 0.004, 0.0000);
         // angleController.enableContinuousInput(-Math.PI, Math.PI);
+        resetToAbsolute();
         this.moduleNumber = moduleNumber;    
+    }
+
+    public void resetToAbsolute() {
+        double absolutePosition = angleEncoder.getAbsolutePosition().getValueAsDouble();
+        angleEncoder.setPosition(absolutePosition); 
     }
 
     //Returns the module angle in degrees;
     public Rotation2d getAngle(){
         //Gets the CTRE value from -0.5 to 0.5
+
         double angleAsDouble = angleEncoder.getAbsolutePosition().getValueAsDouble();
+
         // double angleAsDouble = motorAbsoluteEncoder.getPosition();
         //Multiplies the value of -0.5 to 0.5 giving us the value as an angle
+
+        System.out.println(turningRelativeEncoder.getPosition());
+
         double moduleAngle = ((360 * angleAsDouble) * Math.PI / 180);
+
         return new Rotation2d(moduleAngle);
+
+
     }
 
     public double getAngleOffset(){

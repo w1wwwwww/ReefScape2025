@@ -92,6 +92,8 @@ public static final double DEADBAND = 0.1;
 public static final int RIGHT_JOYSTICK_PORT = 2;
 public static final int MIDDLE_JOYSTICK_PORT = 1;
 public static final int LEFT_JOYSTICK_PORT = 0;
+public static final double GEAR_RATIO = 12.8 / 1;
+public static final double ANGLE_CONVERSION_FACTOR = 360 / GEAR_RATIO;
 
 
 }
