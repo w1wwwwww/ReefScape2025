@@ -101,13 +101,14 @@ public class SwerveModule {
         //Gets the CTRE value from -0.5 to 0.5
 
         double angleAsDouble = angleEncoder.getAbsolutePosition().getValueAsDouble();
+        double findingOut = turningRelativeEncoder.getPosition();
 
         // double angleAsDouble = motorAbsoluteEncoder.getPosition();
         //Multiplies the value of -0.5 to 0.5 giving us the value as an angle
 
         System.out.println(turningRelativeEncoder.getPosition());
 
-        double moduleAngle = ((360 * angleAsDouble) * Math.PI / 180);
+        double moduleAngle = ((360 * findingOut) * Math.PI / 180);
 
         return new Rotation2d(moduleAngle);
 
