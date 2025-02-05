@@ -32,21 +32,21 @@ public final class Constants {
   //Front Left Swerve Module Constants
   public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 7;
   public static final int Front_LEFT_ANGLE_MOTOR_ID = 8;
-  public static final int FRONT_LEFT_CANCODER_ID = 8;
+  public static final int FRONT_LEFT_CANCODER_ID = 13;
   public static final double FRONT_LEFT_ANGLE_OFFSET = 0.44970703125 + 0.1013055;
   public static final int FRONT_LEFT_MODULE_NUMBER = 0;
 
   //Front Right Swerve Module Constants
   public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 1;
   public static final int Front_RIGHT_ANGLE_MOTOR_ID = 2;
-  public static final int FRONT_RIGHT_CANCODER_ID = 2;
+  public static final int FRONT_RIGHT_CANCODER_ID = 15;
   public static final double FRONT_RIGHT_ANGLE_OFFSET = -0.413818359375 - 0.1726111;
   public static final int FRONT_RIGHT_MODULE_NUMBER = 1;
 
   //Back Left Swerve Module Constants
   public static final int BACK_LEFT_DRIVE_MOTOR_ID = 10;
   public static final int BACK_LEFT_ANGLE_MOTOR_ID = 9;
-  public static final int BACK_LEFT_CANCODER_ID = 9;
+  public static final int BACK_LEFT_CANCODER_ID = 14;
   public static final double BACK_LEFT_ANGLE_OFFSET = 0.061279296875;
 
   public static final int BACK_LEFT_MODULE_NUMBER = 2;
@@ -54,7 +54,7 @@ public final class Constants {
   //Back Right Swerve Module Constants
   public static final int BACK_RIGHT_DRIVE_MOTOR_ID = 4;
   public static final int BACK_RIGHT_ANGLE_MOTOR_ID = 3;
-  public static final int BACK_RIGHT_CANCODER_ID = 3;
+  public static final int BACK_RIGHT_CANCODER_ID = 16;
   public static final double BACK_RIGHT_ANGLE_OFFSET = -0.003173828125 + 0.0063;
   ;
   public static final int BACK_RIGHT_MODULE_NUMBER = 3;

@@ -63,7 +63,7 @@ public class SwerveModule {
         turningConfig = new SparkMaxConfig();
         turningConfig.closedLoop
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-            .pid(1.0, 0.0, 0.0)
+            .pid(0.07, 0.000, 0.0)
             .outputRange(-1, 1)
             .positionWrappingEnabled(true);
         // turningConfig.encoder
@@ -93,7 +93,7 @@ public class SwerveModule {
 
     public void resetToAbsolute() {
         double absolutePosition = angleEncoder.getAbsolutePosition().getValueAsDouble();
-        angleEncoder.setPosition(absolutePosition); 
+        turningRelativeEncoder.setPosition(absolutePosition); 
     }
 
     //Returns the module angle in degrees;
@@ -101,18 +101,23 @@ public class SwerveModule {
         //Gets the CTRE value from -0.5 to 0.5
 
         double angleAsDouble = angleEncoder.getAbsolutePosition().getValueAsDouble();
-        double findingOut = turningRelativeEncoder.getPosition();
+        // turningRelativeEncoder.setPosition(angleAsDouble);
+        // double findingOut = turningRelativeEncoder.getPosition();
 
         // double angleAsDouble = motorAbsoluteEncoder.getPosition();
         //Multiplies the value of -0.5 to 0.5 giving us the value as an angle
 
+        // System.out.println(findingOut);
+
+        double moduleAngle = ((360 * angleAsDouble));
+        turningRelativeEncoder.setPosition(moduleAngle * (Math.PI / 180));
         System.out.println(turningRelativeEncoder.getPosition());
 
-        double moduleAngle = ((360 * findingOut) * Math.PI / 180);
+        //angleMotor.set(0.1);
 
         return new Rotation2d(moduleAngle);
 
-
+        
     }
 
     public double getAngleOffset(){
@@ -133,7 +138,10 @@ public class SwerveModule {
     //Sets the desired wheel state of this module for the robot
     public void setDesiredState(SwerveModuleState desiredStates){
         //used to prevent the robot wheels from spinning further that 90 degrees
-        desiredStates.optimize(getAngle()); 
+        var moduleAngle = getAngle();
+
+        System.out.println("Angle: " + moduleAngle + " Module Number: " + moduleNumber);
+        desiredStates.optimize(moduleAngle); 
 
         anglePID.setReference(desiredStates.angle.getRadians(), ControlType.kPosition);
         // double angleOutput = angleController.calculate(getState().angle.getRadians(), desiredStates.angle.getRadians());
