@@ -63,7 +63,7 @@ public class SwerveModule {
         turningConfig = new SparkMaxConfig();
         turningConfig.closedLoop
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-            .pid(0.07, 0.000, 0.0)
+            .pid(0.05, 0.000, 0.0001)
             .outputRange(-1, 1)
             .positionWrappingEnabled(true);
         // turningConfig.encoder
