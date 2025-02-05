@@ -111,7 +111,7 @@ public class SwerveModule {
 
         double moduleAngle = ((360 * angleAsDouble));
         turningRelativeEncoder.setPosition(moduleAngle * (Math.PI / 180));
-        System.out.println(turningRelativeEncoder.getPosition());
+        // System.out.println(turningRelativeEncoder.getPosition());
 
         //angleMotor.set(0.1);
 
@@ -140,8 +140,9 @@ public class SwerveModule {
         //used to prevent the robot wheels from spinning further that 90 degrees
         var moduleAngle = getAngle();
 
-        System.out.println("Angle: " + moduleAngle + " Module Number: " + moduleNumber);
-        desiredStates.optimize(moduleAngle); 
+        // System.out.println("Angle: " + moduleAngle + " Module Number: " + moduleNumber);
+        desiredStates.optimize(moduleAngle);
+        System.out.println("Module Number: " + moduleNumber + " Desired Angle: " + desiredStates.angle.getDegrees());
 
         anglePID.setReference(desiredStates.angle.getRadians(), ControlType.kPosition);
         // double angleOutput = angleController.calculate(getState().angle.getRadians(), desiredStates.angle.getRadians());
