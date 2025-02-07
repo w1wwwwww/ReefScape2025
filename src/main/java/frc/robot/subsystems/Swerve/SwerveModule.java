@@ -1,6 +1,7 @@
 package frc.robot.subsystems.Swerve;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.hardware.CANcoder;
 import com.ctre.phoenix6.CANBus;
 import com.revrobotics.AbsoluteEncoder;
@@ -73,7 +74,8 @@ public class SwerveModule {
         // turningConfig.encoder
             // .positionConversionFactor(Constants.ANGLE_CONVERSION_FACTOR);
         turningConfig
-            .idleMode(IdleMode.kBrake);
+            .idleMode(IdleMode.kBrake)
+            .smartCurrentLimit(20);
         angleMotor.configure(turningConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
 
@@ -142,7 +144,7 @@ public class SwerveModule {
         return new SwerveModulePosition(driveEncoder.getPosition(), getAngle());
     }
 
-    //Sets the desired wheel state of this module for the robot
+    //Sets the desired wheel state of this module for the robot   
     public void setDesiredState(SwerveModuleState desiredStates){
         //used to prevent the robot wheels from spinning further that 90 degrees
         Rotation2d moduleAngle = getAngle();
