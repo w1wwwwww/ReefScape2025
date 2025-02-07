@@ -43,12 +43,15 @@ public class SwerveModule {
     
 
     //Constructor that allows for all of the modules to be created in the subsytem by feeding in the ids and offsets
-    public SwerveModule(int driveMotorID, int angleMotorID, int CANCoderID, double angleEncoderOffset, int moduleNumber){
+    public SwerveModule(int driveMotorID, int angleMotorID, int CANCoderID, double angleEncoderOffset, int moduleNumber, boolean invertDriveMotor){
 
         //Defines the motor in the constructor to tell the rest of the clas it exists
         driveMotor = new SparkMax(driveMotorID, MotorType.kBrushless);
 
         driveConfig = new SparkMaxConfig();
+        driveConfig
+            .idleMode(IdleMode.kBrake)
+            .inverted(invertDriveMotor);
 
         //Defines the drive encoder of off the drive motor to tell us how many times the robot has spun
         driveEncoder = driveMotor.getEncoder();
@@ -63,8 +66,9 @@ public class SwerveModule {
         turningConfig = new SparkMaxConfig();
         turningConfig.closedLoop
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-            .pid(0.05, 0.000, 0.0001)
+            .pid(0.05, 0.0000, 0.0)
             .outputRange(-1, 1)
+            .positionWrappingInputRange(-Math.PI, Math.PI)
             .positionWrappingEnabled(true);
         // turningConfig.encoder
             // .positionConversionFactor(Constants.ANGLE_CONVERSION_FACTOR);
@@ -109,13 +113,16 @@ public class SwerveModule {
 
         // System.out.println(findingOut);
 
-        double moduleAngle = ((360 * angleAsDouble));
-        turningRelativeEncoder.setPosition(moduleAngle * (Math.PI / 180));
+        double moduleAngle = (360 * angleAsDouble);
+        // System.err.println(moduleAngle);
+        double moduleAngleRadians = moduleAngle * (Math.PI / 180);
+        turningRelativeEncoder.setPosition(moduleAngleRadians);
+        // System.out.println(moduleAngleRadians);
         // System.out.println(turningRelativeEncoder.getPosition());
 
         //angleMotor.set(0.1);
 
-        return new Rotation2d(moduleAngle);
+        return new Rotation2d(moduleAngleRadians);
 
         
     }
@@ -138,16 +145,16 @@ public class SwerveModule {
     //Sets the desired wheel state of this module for the robot
     public void setDesiredState(SwerveModuleState desiredStates){
         //used to prevent the robot wheels from spinning further that 90 degrees
-        var moduleAngle = getAngle();
-
+        Rotation2d moduleAngle = getAngle();
         // System.out.println("Angle: " + moduleAngle + " Module Number: " + moduleNumber);
         desiredStates.optimize(moduleAngle);
-        System.out.println("Module Number: " + moduleNumber + " Desired Angle: " + desiredStates.angle.getDegrees());
-
+        
         anglePID.setReference(desiredStates.angle.getRadians(), ControlType.kPosition);
         // double angleOutput = angleController.calculate(getState().angle.getRadians(), desiredStates.angle.getRadians());
         // angleMotor.set(angleOutput);
         driveMotor.set(desiredStates.speedMetersPerSecond);
+        System.out.println("Module Number: " + moduleNumber + " Desired Angle: " + desiredStates.angle.getDegrees() + "Current Angle: " + turningRelativeEncoder.getPosition());
+
     }
 
     public int getNumber(){

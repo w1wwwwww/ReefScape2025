@@ -28,28 +28,32 @@ public class SwerveSubsystem extends SubsystemBase{
         //Added the parameters to define all of the 4 modules
         frontLeftSwerveModule = new SwerveModule(
             Constants.FRONT_LEFT_DRIVE_MOTOR_ID, 
-            Constants.Front_LEFT_ANGLE_MOTOR_ID, 
+            Constants.FRONT_LEFT_ANGLE_MOTOR_ID, 
             Constants.FRONT_LEFT_CANCODER_ID, 
             Constants.FRONT_LEFT_ANGLE_OFFSET,
-            Constants.FRONT_LEFT_MODULE_NUMBER);
+            Constants.FRONT_LEFT_MODULE_NUMBER,
+            Constants.FRONT_LEFT_DRIVE_INVERT);
         frontRightSwerveModule = new SwerveModule(
             Constants.FRONT_RIGHT_DRIVE_MOTOR_ID, 
-            Constants.Front_RIGHT_ANGLE_MOTOR_ID, 
+            Constants.FRONT_RIGHT_ANGLE_MOTOR_ID, 
             Constants.FRONT_RIGHT_CANCODER_ID, 
             Constants.FRONT_RIGHT_ANGLE_OFFSET,
-            Constants.FRONT_RIGHT_MODULE_NUMBER);
+            Constants.FRONT_RIGHT_MODULE_NUMBER,
+            Constants.FRONT_RIGHT_DRIVE_INVERT);
         backLeftSwerveModule = new SwerveModule(
             Constants.BACK_LEFT_DRIVE_MOTOR_ID, 
             Constants.BACK_LEFT_ANGLE_MOTOR_ID, 
             Constants.BACK_LEFT_CANCODER_ID, 
             Constants.BACK_LEFT_ANGLE_OFFSET,
-            Constants.BACK_LEFT_MODULE_NUMBER);
+            Constants.BACK_LEFT_MODULE_NUMBER,
+            Constants.BACK_LEFT_DRIVE_INVERT);
         backRightSwerveModule = new SwerveModule(
             Constants.BACK_RIGHT_DRIVE_MOTOR_ID, 
             Constants.BACK_RIGHT_ANGLE_MOTOR_ID, 
             Constants.BACK_RIGHT_CANCODER_ID, 
             Constants.BACK_RIGHT_ANGLE_OFFSET,
-            Constants.BACK_RIGHT_MODULE_NUMBER);
+            Constants.BACK_RIGHT_MODULE_NUMBER,
+            Constants.BACK_RIGHT_DRIVE_INVERT);
 
         odometry = new SwerveDriveOdometry(Constants.SWERVE_DRIVE_KINEMATICS, gyro.getRotation2d(), getSwerveModulePositions());
         modules = new SwerveModule[]{frontLeftSwerveModule, frontRightSwerveModule, backLeftSwerveModule, backRightSwerveModule};
