@@ -8,6 +8,7 @@ import com.ctre.phoenix6.signals.SensorDirectionValue;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.units.measure.Angle;
 import edu.wpi.first.units.measure.LinearVelocity;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine;
@@ -30,42 +31,42 @@ public final class Constants {
   public static final SensorDirectionValue ABSOLUTE_ENCODER_SENSOR_DIRECTION = SensorDirectionValue.Clockwise_Positive;
 
   //Front Left Swerve Module Constants
-  public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 7;
-  public static final int FRONT_LEFT_ANGLE_MOTOR_ID = 8;
+  public static final int FRONT_LEFT_DRIVE_MOTOR_ID = 1;
+  public static final int FRONT_LEFT_ANGLE_MOTOR_ID = 2;
   public static final int FRONT_LEFT_CANCODER_ID = 13;
-  public static final double FRONT_LEFT_ANGLE_OFFSET = 0.44970703125 + 0.1013055;
+  public static final double FRONT_LEFT_ANGLE_OFFSET = 0;
   public static final int FRONT_LEFT_MODULE_NUMBER = 0;
   public static final boolean FRONT_LEFT_DRIVE_INVERT = false;
 
   //Front Right Swerve Module Constants
-  public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 1;
-  public static final int FRONT_RIGHT_ANGLE_MOTOR_ID = 2;
+  public static final int FRONT_RIGHT_DRIVE_MOTOR_ID = 3;
+  public static final int FRONT_RIGHT_ANGLE_MOTOR_ID = 4;
   public static final int FRONT_RIGHT_CANCODER_ID = 15;
-  public static final double FRONT_RIGHT_ANGLE_OFFSET = -0.413818359375 - 0.1726111;
+  public static final double FRONT_RIGHT_ANGLE_OFFSET = 0;
   public static final int FRONT_RIGHT_MODULE_NUMBER = 1;
   public static final boolean FRONT_RIGHT_DRIVE_INVERT = false;
 
   //Back Left Swerve Module Constants
-  public static final int BACK_LEFT_DRIVE_MOTOR_ID = 10;
-  public static final int BACK_LEFT_ANGLE_MOTOR_ID = 9;
+  public static final int BACK_LEFT_DRIVE_MOTOR_ID = 7;
+  public static final int BACK_LEFT_ANGLE_MOTOR_ID = 8;
   public static final int BACK_LEFT_CANCODER_ID = 14;
-  public static final double BACK_LEFT_ANGLE_OFFSET = 0.061279296875;
+  public static final double BACK_LEFT_ANGLE_OFFSET = 0;
 
-  public static final int BACK_LEFT_MODULE_NUMBER = 2;
+  public static final int BACK_LEFT_MODULE_NUMBER = 3;
   public static final boolean BACK_LEFT_DRIVE_INVERT = false;
 
   //Back Right Swerve Module Constants
-  public static final int BACK_RIGHT_DRIVE_MOTOR_ID = 4;
-  public static final int BACK_RIGHT_ANGLE_MOTOR_ID = 3;
+  public static final int BACK_RIGHT_DRIVE_MOTOR_ID = 5;
+  public static final int BACK_RIGHT_ANGLE_MOTOR_ID = 6;
   public static final int BACK_RIGHT_CANCODER_ID = 16;
-  public static final double BACK_RIGHT_ANGLE_OFFSET = -0.003173828125 + 0.0063;
+  public static final double BACK_RIGHT_ANGLE_OFFSET = 0;
   ;
-  public static final int BACK_RIGHT_MODULE_NUMBER = 3;
+  public static final int BACK_RIGHT_MODULE_NUMBER = 2;
   public static final boolean BACK_RIGHT_DRIVE_INVERT = false;
 
   //DriveBase Lenghts
-  public static final double ROBOT_BASE_LENGTH = 0.3;
-  public static final double ROBOT_BASE_WIDTH = 0.295;
+  public static final double ROBOT_BASE_LENGTH = 30;
+  public static final double ROBOT_BASE_WIDTH = 30;
 
   public static final double X_FROM_CENTER = ROBOT_BASE_LENGTH / 2;
   public static final double Y_FROM_CENTER = ROBOT_BASE_WIDTH / 2;
@@ -89,7 +90,7 @@ public final class Constants {
     new Translation2d(BACK_LEFT_X_LOCATION, BACK_LEFT_Y_LOCATION),
     new Translation2d(BACK_RIGHT_X_LOCATION, BACK_RIGHT_Y_LOCATION));
   
-public static final double MAX_DRIVE_SPEED_MPS = 1;
+public static final double MAX_DRIVE_SPEED_MPS = Units.feetToMeters(15);
 
 //Joysticks
 public static final double DEADBAND = 0.1;
