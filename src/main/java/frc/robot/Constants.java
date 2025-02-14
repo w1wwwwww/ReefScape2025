@@ -98,7 +98,11 @@ public static final int RIGHT_JOYSTICK_PORT = 2;
 public static final int MIDDLE_JOYSTICK_PORT = 1;
 public static final int LEFT_JOYSTICK_PORT = 0;
 public static final double GEAR_RATIO = 12.8 / 1;
+public static final double DRIVE_GEAR_RATIO = 6.75 / 1;
 public static final double ANGLE_CONVERSION_FACTOR = 360 / GEAR_RATIO;
+public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
+public static final double DRIVE_POSITION_CONVERSION_FACTOR  = (WHEEL_DIAMETER * Math.PI) / DRIVE_GEAR_RATIO;
+public static final double DRIVE_VELOCITY_CONVERSION_FACOTR = DRIVE_POSITION_CONVERSION_FACTOR / 60;
 
 
 }

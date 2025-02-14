@@ -53,6 +53,9 @@ public class SwerveModule {
         driveConfig
             .idleMode(IdleMode.kBrake)
             .inverted(invertDriveMotor);
+        driveConfig.encoder
+            .velocityConversionFactor(Constants.DRIVE_VELOCITY_CONVERSION_FACOTR)
+            .positionConversionFactor(Constants.DRIVE_POSITION_CONVERSION_FACTOR);
 
         //Defines the drive encoder of off the drive motor to tell us how many times the robot has spun
         driveEncoder = driveMotor.getEncoder();
@@ -67,7 +70,7 @@ public class SwerveModule {
         turningConfig = new SparkMaxConfig();
         turningConfig.closedLoop
             .feedbackSensor(FeedbackSensor.kPrimaryEncoder)
-            .pid(0.05, 0.0000, 0.0)
+            .pid(0.01, 0.0000, 0.0)
             .outputRange(-1, 1)
             .positionWrappingInputRange(-Math.PI, Math.PI)
             .positionWrappingEnabled(true);
@@ -78,7 +81,6 @@ public class SwerveModule {
             .smartCurrentLimit(20);
         angleMotor.configure(turningConfig, ResetMode.kResetSafeParameters,
         PersistMode.kPersistParameters);
-
 
         //Makes a configurator object for the CANCoder allowing us to change specific parts of it
         angleEncoderConfiguration = new CANcoderConfiguration();
