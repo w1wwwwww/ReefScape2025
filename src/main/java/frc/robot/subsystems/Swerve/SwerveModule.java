@@ -1,7 +1,10 @@
 package frc.robot.subsystems.Swerve;
 
 import com.ctre.phoenix6.configs.CANcoderConfiguration;
+import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.hardware.CANcoder;
+import com.ctre.phoenix6.CANBus;
+import com.revrobotics.AbsoluteEncoder;
 import com.revrobotics.RelativeEncoder;
 import com.revrobotics.spark.SparkClosedLoopController;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
@@ -9,9 +12,11 @@ import com.revrobotics.spark.config.ClosedLoopConfig.FeedbackSensor;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
 import com.revrobotics.spark.config.SparkMaxConfig;
 
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.units.measure.Angle;
 import frc.robot.Constants;
 
 import com.revrobotics.spark.SparkMax;
@@ -26,7 +31,12 @@ public class SwerveModule {
     private RelativeEncoder driveEncoder;
     private CANcoder angleEncoder;
     private CANcoderConfiguration angleEncoderConfiguration;
+    private PIDController angleController;
+    private SparkMaxConfig driveMotorConfig;
+    private double angleAsDouble;
+    private double angleEncoderOffset;
     private int moduleNumber;
+    private AbsoluteEncoder motorAbsoluteEncoder;
     private SparkClosedLoopController anglePID;
     private SparkMaxConfig turningConfig;
     private SparkMaxConfig driveConfig;
@@ -55,6 +65,7 @@ public class SwerveModule {
         angleMotor = new SparkMax(angleMotorID, MotorType.kBrushless);
         angleEncoder = new CANcoder(CANCoderID);
         turningRelativeEncoder = angleMotor.getEncoder();
+        motorAbsoluteEncoder = angleMotor.getAbsoluteEncoder();
         anglePID = angleMotor.getClosedLoopController();
         turningConfig = new SparkMaxConfig();
         turningConfig.closedLoop
